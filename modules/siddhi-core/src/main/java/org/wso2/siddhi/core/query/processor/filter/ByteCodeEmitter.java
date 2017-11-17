@@ -43,4 +43,5 @@ public interface ByteCodeEmitter {
      */
     public void generate(ExpressionExecutor conditionExecutor, int index, int parent, Label specialCase,
                          MethodVisitor methodVisitor, ByteCodeGenerator byteCodeGenerator);
+
 }
