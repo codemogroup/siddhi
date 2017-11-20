@@ -63,7 +63,7 @@ public class ByteCodeBuilder {
      *this class's constructor will pass a list of ExpressionExecutors to field unHandledExpressionExecutors.
      * @param classWriter Instance of ASM library class 'ClassWriter' that used to generate the byte-code class.
      */
-    public static void jitCompiledExpressionExecutorClassPopulator(ClassWriter classWriter) {
+    protected static void jitCompiledExpressionExecutorClassPopulator(ClassWriter classWriter) {
         classWriter.visit(52, ACC_PUBLIC + ACC_SUPER, "JITCompiledExpressionExecutor", null,
                 "java/lang/Object", new String[] { "org/wso2/siddhi/core/executor/ExpressionExecutor" });
         classWriter.visitSource("JITCompiledExpressionExecutor.java", null);
@@ -88,7 +88,7 @@ public class ByteCodeBuilder {
      * ExpressionExecutors which are not handled through byte-code generation.
      * @param classWriter
      */
-    public static void unHandledExpressionExecutorsFieldPopulator(ClassWriter classWriter) {
+    protected static void unHandledExpressionExecutorsFieldPopulator(ClassWriter classWriter) {
         FieldVisitor fieldVisitor = classWriter.visitField(ACC_PRIVATE, "unHandledExpressionExecutors",
                 "Ljava/util/List;", "Ljava/util/List<Lorg/wso2/siddhi/core/executor/ExpressionExecutor;>;",
                 null);
@@ -101,7 +101,7 @@ public class ByteCodeBuilder {
      * JITCompiledExpressionExecutor.
      * @param classWriter
      */
-    public static void cloneExecutorMethodPopulator(ClassWriter classWriter) {
+    protected static void cloneExecutorMethodPopulator(ClassWriter classWriter) {
         MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "cloneExecutor",
                 "(Ljava/lang/String;)Lorg/wso2/siddhi/core/executor/ExpressionExecutor;", null,
                 null);
@@ -143,7 +143,7 @@ public class ByteCodeBuilder {
      * FilterProcessor.
      * @param classWriter
      */
-    public static void getReturnTypeMethodPopulator(ClassWriter classWriter) {
+    protected static void getReturnTypeMethodPopulator(ClassWriter classWriter) {
         MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "getReturnType",
                 "()Lorg/wso2/siddhi/query/api/definition/Attribute$Type;", null, null);
         methodVisitor.visitCode();
@@ -160,7 +160,7 @@ public class ByteCodeBuilder {
      * @param classWriter
      * @return
      */
-    public static MethodVisitor executeMethodPopulator(ClassWriter classWriter) {
+    protected static MethodVisitor executeMethodPopulator(ClassWriter classWriter) {
         MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "execute",
                 "(Lorg/wso2/siddhi/core/event/ComplexEvent;)Ljava/lang/Object;",
                 null, null);
@@ -178,7 +178,7 @@ public class ByteCodeBuilder {
      * @param byteCodeGenerator Instance of ByteCodeGenerator class.
      * @param expressionExecutor Expression Executor of filter query.
      */
-    public static void end(ClassWriter classWriter, MethodVisitor methodVisitor, ByteCodeGenerator byteCodeGenerator,
+    protected static void end(ClassWriter classWriter, MethodVisitor methodVisitor, ByteCodeGenerator byteCodeGenerator,
                     ExpressionExecutor expressionExecutor) {
         if (!(expressionExecutor instanceof VariableExpressionExecutor)) {
             methodVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Boolean", "valueOf",
