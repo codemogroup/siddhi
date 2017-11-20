@@ -21,6 +21,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
 import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.VariableExpressionExecutor;
@@ -206,14 +207,17 @@ public class ByteCodeBuilder {
             byteCodeGenerator.setExpressionExecutor((ExpressionExecutor) constructor.
                     newInstance(byteCodeGenerator.getUnHandledExpressionExecutors()));
         } catch (InstantiationException e) {
-            throw new SiddhiAppRuntimeException("Error while instantiating JITCompiledExpressionExecutor.", e);
+            throw new SiddhiAppRuntimeException("Error while instantiating JITCompiledExpressionExecutor." +
+                    "JIT code generation:" + new SiddhiAppContext().getQueryJITCompile(), e);
         } catch (IllegalAccessException e) {
-            throw new SiddhiAppRuntimeException("Error while instantiating JITCompiledExpressionExecutor.", e);
+            throw new SiddhiAppRuntimeException("Error while instantiating JITCompiledExpressionExecutor." +
+                    "JIT code generation:" + new SiddhiAppContext().getQueryJITCompile(), e);
         } catch (NoSuchMethodException e) {
-            throw new SiddhiAppRuntimeException("Error while finding constructor of JITCompiledExpressionExecutor.", e);
+            throw new SiddhiAppRuntimeException("Error while finding constructor of JITCompiledExpressionExecutor." +
+                    "JIT code generation:" + new SiddhiAppContext().getQueryJITCompile(), e);
         } catch (InvocationTargetException e) {
-            throw new SiddhiAppRuntimeException("Error while invoking constructor of JITCompiledExpressionExecutor.",
-                    e);
+            throw new SiddhiAppRuntimeException("Error while invoking constructor of JITCompiledExpressionExecutor." +
+                    "JIT code generation:" + new SiddhiAppContext().getQueryJITCompile(), e);
         }
     }
 }
