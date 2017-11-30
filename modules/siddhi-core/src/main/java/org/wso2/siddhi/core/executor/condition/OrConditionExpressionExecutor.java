@@ -82,4 +82,11 @@ public class OrConditionExpressionExecutor extends ConditionExpressionExecutor {
     }
 
 
+    public ExpressionExecutor getLeftConditionExecutor() {
+        return leftConditionExecutor;
+    }
+
+    public ExpressionExecutor getRightConditionExecutor() {
+        return rightConditionExecutor;
+    }
 }
